@@ -1,0 +1,142 @@
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>實驗步驟 - R531 癌症幹細胞實驗室</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="protocols-body"> <div class="sidebar">
+        <button class="lab-btn btn-a" onclick="showP('pcr')">PCR</button>
+        <button class="lab-btn btn-a" onclick="showP('tail')">抽尾巴</button>        
+        <button class="lab-btn btn-a" onclick="showP('pro')">Protein Assay</button>
+        <button class="lab-btn btn-a" onclick="showP('wb')">WB</button>
+        <button class="lab-btn btn-e" onclick="showP('transf')">Transformation</button>
+        <button class="lab-btn btn-e" onclick="showP('mini')">Mini</button>
+        <button class="lab-btn btn-e" onclick="showP('midi')">Midi</button>
+        <button class="lab-btn btn-b" onclick="showP('sub')">Sub</button>
+        <button class="lab-btn btn-b" onclick="showP('transfec')">Transfection</button>
+        <button class="lab-btn btn-b" onclick="showP('mtt')">MTT</button>
+        <button class="lab-btn btn-b" onclick="showP('wh')">WH</button>
+        <button class="lab-btn btn-b" onclick="showP('inv')">Invasion</button>
+        <button class="lab-btn btn-b" onclick="showP('flow')">Flow</button>
+        <button class="lab-btn btn-c" onclick="showP('rna')">RNA Ext.</button>
+        <button class="lab-btn btn-c" onclick="showP('cdna')">cDNA</button>
+        <button class="lab-btn btn-d" onclick="showP('ihc')">IHC</button>
+        <button class="lab-btn btn-d" onclick="showP('if')">IF</button>
+        <button class="lab-btn btn-d" onclick="showP('ip')">IP</button>
+    </div>
+
+    <div class="main-display">
+        <h1 id="p-title">R531 Protocol 庫</h1>
+        <div id="p-text" style="text-align: left; white-space: pre-wrap;">請點擊左側項目開始閱覽...</div>
+        <a href="index.html" class="back-home">← 返回首頁</a>
+    </div>
+
+    <script>
+       const pData = {
+            // 這裡的名稱 (key) 必須跟按鈕 onclick('...') 括號裡的一模一樣
+            pcr: { title: "🧬 PCR Protocol", text: "1. 準備 Master Mix...\n2. 加入 Template 與 Primers..." },
+          tail: { 
+    title: "🖱️ 抽尾巴 (Mouse Tail Genotyping)", 
+    text: `1. 配置 Tail lysis buffer：Proteinase K = 200：1 (可多配 2-3 管)
+2. Vortex 後每管加入 300 μl，56℃ 搖 overnight
+3. 離心機預冷 4℃，vortex 尾巴確定完全溶解
+4. 每管加入 250 μl NaCl，vortex 後置於冰上 10 min (整個冰放 -20℃)
+5. 離心 16000 g, 4℃, 15 min
+6. 吸取上清液到新的 1.5 cc tube
+7. 加入 650 μl Isopropanol，上下混合均勻，放 -20℃ 10 min
+8. 離心 16000 g, 4℃, 15 min，倒掉上清液
+9. 加入 1 cc 70% 酒精
+10. 離心 7500 g, 4℃, 10 min，倒掉上清液
+11. 加入 1 cc 70% 酒精
+12. 離心 7500 g, 4℃, 10 min，倒掉上清液，吸乾
+13. 56℃ 開蓋烘 10 min
+14. 加入 100 μl TE buffer
+15. 56℃ 關蓋溶解 DNA 15 min
+16. 冰 4℃` 
+},
+            sub: { title: "🧫 Sub-culture (細胞繼代)", text: "內容建立中..." },
+            pro: { title: "🧪 Protein Assay", text: "內容建立中..." },
+            wb: { title: "🖼️ Western Blot", text: "1. Gel preparation...\n2. Transfer...\n3. Blocking..." },
+            transf: { 
+                title: "🧫 Transformation (Heat Shock)", 
+                text: `1. 從 -80℃ 拿一管 competent cell 放在冰上
+2. 加入 1 μg DNA (不可 pipetting，用輕敲或旋轉的方式混勻)
+3. 插在冰上 30 min
+4. 乾浴槽 42℃ 45 s
+5. 插在冰上 2 min
+6. 到操作台加入 250 μl LB
+7. 37℃ 搖一個小時
+8. 離心 6000 g 25℃ 5 min
+9. 倒掉上清液，將殘留的菌液與 pellet 混和
+10. 取 20 μl 塗盤` 
+            },
+mini: { title: "🧬 Mini (Plasmid Extraction)", text: "內容建立中..." },
+            midi: { title: "🧬 Midi", text: "內容建立中..." },
+            transfec: { title: "💉 Transfection (細胞轉染)", text: "內容建立中..." },
+            mtt: { title: "📊 MTT Assay (Proliferation)", text: "內容建立中..." },
+            wh: { title: "🚶 Wound Healing (Migration)", text: "內容建立中..." },
+            inv: { title: "🧗 Invasion Assay", text: "內容建立中..." },
+            rna: {
+                title: "🧪 RNA Extraction",
+                // 🔴 注意：這裡改用反引號 ` 就可以自由換行了
+                text: `1. P6 cell 用 PBS wash 兩次，吸乾後加入 500 μl Trizol
+2. 刮下細胞，用刮刀攪拌均勻，吸進 1.5 cc eppendorf
+3. 置於室溫 5 min
+4. 加入 100 μl BCP，上下 shaking
+5. 放在室溫 3 min
+6. 12000g 4℃ 離心 15 min
+7. 吸取上清液 (最上層透明) 到新的 eppendorf
+8. 看上清液多少再加一次 BCP (上清液：BCP = 5：1)
+9. 放在室溫 3 min
+10. 12000g 4℃ 離心 15 min
+11. 吸取上清液到新的 eppendorf
+12. 加入 250 μl isopropanol，上下輕輕 mix，置於冰上或 -20℃ 10 min 
+13. 12000g 4℃ 離心 15 min，倒掉上清液
+14. 加入 500 μl 70% ethanol， vortex
+15. 7500g 4℃ 離心 5 min
+16. 吸乾酒精，在乾淨的平台上乾燥 10 min
+17. 加入 20 μl ddH2O 溶解 pellet
+18. 測 OD`
+            },
+
+    cdna: { title: "🧬 cDNA Synthesis (Reverse Transcription)", text: `【Step 1】
+試劑名稱                     體積 (μl)
+---------------------------------------
+Random Primer               1  μl
+2x Deoxy+ RT Premix         10  μl
+RNA                         2  μg
+Nuclease-Free Water         補到 18 μl
+---------------------------------------
+Total Volume               18  μl
+
+※ 乾浴槽 65℃ 煮 5 min，插在冰上 30 s。
+
+【Step 2】
+再加入以下試劑：
+---------------------------------------
+RNase inhibitor            0.5 μl
+Reverse Transcriptase      1   μl
+---------------------------------------
+Final Volume               19.5 μl
+
+※ 輕微彈跳混勻後上機 ※
+【Step 3】
+每管加入 100 μl ddH2O，存放於 -20℃。` },
+            ihc: { title: "🔬 IHC (免疫組化染色)", text: "內容建立中..." },
+            if: { title: "✨ IF (免疫螢光染色)", text: "內容建立中..." },
+            flow: { title: "📊 Flow Cytometry (流式細胞儀)", text: "內容建立中..." },
+            ip: { title: "🧲 IP (免疫沉澱法)", text: "內容建立中..." }
+        };
+
+        function showP(id) {
+            if(pData[id]) {
+                document.getElementById('p-title').innerText = pData[id].title;
+                document.getElementById('p-text').innerHTML = pData[id].text;
+            } else {
+                document.getElementById('p-title').innerText = "內容建立中";
+                document.getElementById('p-text').innerText = "此 Protocol 尚未輸入內容，請點擊 RNA Ext. 測試。";
+            }
+        }
+    </script>
+<body class="protocols-body">
+</html>

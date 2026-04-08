@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <title>實驗室規則 - R531 癌症幹細胞實驗室</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="rules-body">
+
+    <div class="sidebar">
+        <button class="lab-btn" onclick="showContent('cell')">細胞房</button>
+        <button class="lab-btn" onclick="showContent('animal')">動物房</button>
+        <button class="lab-btn" onclick="showContent('lab')">實驗室</button>
+    </div>
+
+    <div class="main-display">
+        <h1 id="content-title">請選擇區域查看規則</h1>
+        <div id="content-text">
+            點擊左側按鈕以顯示各房規則...
+        </div>
+        <a href="index.html" class="back-home">← 返回首頁</a>
+    </div>
+
+    <script>
+        // 實驗室規則資料庫
+        const data = {
+            cell: {
+                title: "🧫 細胞房操作規則",
+                text: `⭐ Medium 注意事項
+1. 使用前放水浴槽回溫
+2. 噴酒精擦乾後放入操作台曬 UV 30 min
+3. 使用時單手開蓋、斜拿
+4. 使用完畢後包 parafilm 冰冰箱
+5. 用完的血清瓶洗乾淨 (medium 用細胞房刷子、PBS 用 buffer 刷子) 後放烘箱
+--------------------------------------------------
+
+⭐ 操作台注意事項
+1. 使用前檯面用擦手紙噴酒精擦乾淨
+2. 所有物品噴酒精放入
+3. 準備兩個燒杯，在操作台內打開，一個丟 tips，另一個在操作台邊緣處倒入漂白水丟廢液
+4. Piptte 用完轉回最大刻度
+5. Suction 玻璃管使用後吸 70% 酒精拔下來放操作台內，若有調整吸力需轉回原位
+6. 使用完畢後檯面用擦手紙噴酒精擦乾淨
+
+`
+            },
+            animal: {
+                title: "🐭 動物房管理守則",
+                text: `1. 必須穿戴全套拋棄式隔離衣帽。
+2. 嚴禁將外部器材帶入，除非經過高壓滅菌。
+3. 每日檢查飲水與飼料，觀察動物健康狀態並記錄。`
+            },
+            lab: {
+                title: "🔬 一般實驗室規則",
+                text: `1. 實驗台面保持整潔，不放置私人雜物。
+2. 離心機使用後必須清潔轉子並保持上蓋開啟。
+3. 所有化學品須依規定回報使用量並歸位。`
+            }
+        };
+
+        // 點擊按鈕時觸發的動作
+        function showContent(type) {
+            const targetData = data[type];
+            if (targetData) {
+                // 更新標題
+                document.getElementById('content-title').innerText = targetData.title;
+                // 更新內文：使用 innerText 配合 CSS 的 white-space: pre-wrap 確保換行生效
+                document.getElementById('content-text').innerText = targetData.text;
+            }
+        }
+    </script>
+</body>
+</html>
